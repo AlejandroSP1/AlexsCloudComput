@@ -1,5 +1,5 @@
-const SUPERBASE_URL = "https://prcgplilslpcluutzvwf.supabase.co"
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByY2dwbGlsc2xwY2x1dXR6dndmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MDUzNzUsImV4cCI6MjA3MDA4MTM3NX0.IGZDeF6EJagxOxm1OB2X3MdN8uQ0tRXhYT6hmkYYU1U"
+const SUPERBASE_URL = "https://prcgplilslpcluutzvwf.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByY2dwbGlsc2xwY2x1dXR6dndmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MDUzNzUsImV4cCI6MjA3MDA4MTM3NX0.IGZDeF6EJagxOxm1OB2X3MdN8uQ0tRXhYT6hmkYYU1U";
 const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function toggleForms() {
