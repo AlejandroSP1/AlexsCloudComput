@@ -1,21 +1,24 @@
+// Definir las claves de Supabase
 const SUPABASE_URL = "https://prcgplilslpcluutzvwf.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByY2dwbGlsc2xwY2x1dXR6dndmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MDUzNzUsImV4cCI6MjA3MDA4MTM3NX0.IGZDeF6EJagxOxm1OB2X3MdN8uQ0tRXhYT6hmkYYU1U";
 
-// Definir el cliente de Supabase
+// Crear cliente de Supabase
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+// Función para agregar estudiante
 async function agregarEstudiante() {
   const nombre = document.getElementById("nombre").value;
   const correo = document.getElementById("correo").value;
   const clase = document.getElementById("clase").value;
 
+  // Verificar si el usuario está autenticado
   const { data: { user }, error: userError } = await client.auth.getUser();
-
   if (userError || !user) {
     alert("No estás autenticado.");
     return;
   }
 
+  // Insertar estudiante
   const { error } = await client.from("estudiantes").insert({
     nombre,
     correo,
@@ -24,13 +27,14 @@ async function agregarEstudiante() {
   });
 
   if (error) {
-    alert("Error al agregar: " + error.message);
+    alert("Error al agregar estudiante: " + error.message);
   } else {
     alert("Estudiante agregado");
     cargarEstudiantes();
   }
 }
 
+// Función para cargar la lista de estudiantes
 async function cargarEstudiantes() {
   const { data, error } = await client
     .from("estudiantes")
@@ -51,6 +55,7 @@ async function cargarEstudiantes() {
   });
 }
 
+// Función para subir archivos
 async function subirArchivo() {
   const archivoInput = document.getElementById("archivo");
   const archivo = archivoInput.files[0];
@@ -61,7 +66,6 @@ async function subirArchivo() {
   }
 
   const { data: { user }, error: userError } = await client.auth.getUser();
-
   if (userError || !user) {
     alert("Sesión no válida.");
     return;
@@ -76,13 +80,14 @@ async function subirArchivo() {
     });
 
   if (error) {
-    alert("Error al subir: " + error.message);
+    alert("Error al subir archivo: " + error.message);
   } else {
     alert("Archivo subido correctamente.");
-    listarArchivos(); 
+    listarArchivos();
   }
 }
 
+// Función para listar archivos subidos
 async function listarArchivos() {
   const { data: { user }, error: userError } = await client.auth.getUser();
 
@@ -139,6 +144,7 @@ async function listarArchivos() {
   });
 }
 
+// Función para cerrar sesión
 async function cerrarSesion() {
   const { error } = await client.auth.signOut();
 

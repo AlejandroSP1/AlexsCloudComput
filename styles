@@ -7,6 +7,9 @@ body {
   padding: 40px;
   display: flex;
   justify-content: center;
+  align-items: center; /* Centrar verticalmente */
+  height: 100vh; /* Utiliza toda la altura de la pantalla */
+  text-align: center; /* Centrar texto */
 }
 
 /* Contenedor principal */
@@ -35,6 +38,7 @@ input, select {
   background-color: #34495E; /* Fondo más oscuro */
   color: white;
   font-size: 16px;
+  width: 100%; /* Asegura que los campos ocupen todo el ancho disponible */
 }
 
 /* Botones */
@@ -47,6 +51,7 @@ button {
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  width: 100%; /* Para que el botón ocupe todo el ancho */
 }
 
 button:hover {
