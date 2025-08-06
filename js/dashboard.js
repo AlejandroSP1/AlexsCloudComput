@@ -9,10 +9,7 @@ async function agregarEstudiante() {
   const correo = document.getElementById("correo").value;
   const clase = document.getElementById("clase").value;
 
-  const {
-    data: { user },
-    error: userError,
-  } = await client.auth.getUser();
+  const { data: { user }, error: userError } = await client.auth.getUser();
 
   if (userError || !user) {
     alert("No estás autenticado.");
@@ -36,7 +33,7 @@ async function agregarEstudiante() {
 
 async function cargarEstudiantes() {
   const { data, error } = await client
-    .from("estudiantes") //Nombre de la tabla
+    .from("estudiantes")
     .select("*")
     .order("created_at", { ascending: false });
 
@@ -49,7 +46,7 @@ async function cargarEstudiantes() {
   lista.innerHTML = "";
   data.forEach((est) => {
     const item = document.createElement("li");
-    item.textContent = `${est.nombre} (${est.clase})`; // Corregido template literal
+    item.textContent = `${est.nombre} (${est.clase})`;
     lista.appendChild(item);
   });
 }
@@ -63,19 +60,16 @@ async function subirArchivo() {
     return;
   }
 
-  const {
-    data: { user },
-    error: userError,
-  } = await client.auth.getUser();
+  const { data: { user }, error: userError } = await client.auth.getUser();
 
   if (userError || !user) {
     alert("Sesión no válida.");
     return;
   }
 
-  const nombreRuta = `${user.id}/${archivo.name}`; // Corregido template literal
+  const nombreRuta = `${user.id}/${archivo.name}`;
   const { data, error } = await client.storage
-    .from("tareas") //Nombre del bucket
+    .from("tareas")
     .upload(nombreRuta, archivo, {
       cacheControl: "3600",
       upsert: false,
@@ -90,10 +84,7 @@ async function subirArchivo() {
 }
 
 async function listarArchivos() {
-  const {
-    data: { user },
-    error: userError,
-  } = await client.auth.getUser();
+  const { data: { user }, error: userError } = await client.auth.getUser();
 
   if (userError || !user) {
     alert("Sesión no válida.");
@@ -102,9 +93,9 @@ async function listarArchivos() {
 
   const { data, error } = await client.storage
     .from("tareas")
-    .list(`${user.id}`, { limit: 20 }); // Corregido template literal
+    .list(`${user.id}`, { limit: 20 });
 
-  const lista = document.getElementById("lista-archivos");
+  const lista = document.getElementById("archivos-subidos");
   lista.innerHTML = "";
 
   if (error) {
@@ -115,7 +106,7 @@ async function listarArchivos() {
   data.forEach(async (archivo) => {
     const { data: signedUrlData, error: signedUrlError } = await client.storage
       .from("tareas")
-      .createSignedUrl(`${user.id}/${archivo.name}`, 60); // Corregido template literal
+      .createSignedUrl(`${user.id}/${archivo.name}`, 60);
 
     if (signedUrlError) {
       console.error("Error al generar URL firmada:", signedUrlError.message);
@@ -125,7 +116,6 @@ async function listarArchivos() {
     const publicUrl = signedUrlData.signedUrl;
 
     const item = document.createElement("li");
-
     const esImagen = archivo.name.match(/\.(jpg|jpeg|png|gif)$/i);
     const esPDF = archivo.name.match(/\.pdf$/i);
 
@@ -148,7 +138,6 @@ async function listarArchivos() {
     lista.appendChild(item);
   });
 }
-listarArchivos();
 
 async function cerrarSesion() {
   const { error } = await client.auth.signOut();
