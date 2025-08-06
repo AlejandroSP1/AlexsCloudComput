@@ -2,14 +2,16 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mi Clase en la Nube - Login</title>
+  <!-- Asegúrate de que styles.css exista en la misma carpeta que este HTML -->
   <link rel="stylesheet" href="styles.css" />
- </head>
+</head>
 <body>
   <h1>Bienvenida a Mi Clase en la Nube</h1>
 
   <div id="auth-container">
-  
+    <!-- Inicio de sesión -->
     <div id="login-form">
       <h2>Iniciar Sesión</h2>
       <input type="email" id="email" placeholder="Correo" />
@@ -18,6 +20,7 @@
       <p>¿No tienes cuenta? <a href="#" onclick="toggleForms()">Regístrate aquí</a></p>
     </div>
 
+    <!-- Registro -->
     <div id="register-form" style="display:none;">
       <h2>Registrarse</h2>
       <input type="email" id="reg-email" placeholder="Correo" />
@@ -26,7 +29,18 @@
       <p>¿Ya tienes cuenta? <a href="#" onclick="toggleForms()">Inicia sesión aquí</a></p>
     </div>
   </div>
+
+  <!-- Supabase JS -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Definición de tus credenciales de Supabase -->
+  <script>
+    // Sustituye estos valores por los de tu proyecto en Supabase
+    const SUPABASE_URL      = 'https://tu-proyecto.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJ...tu_anon_key...';
+  </script>
+
+  <!-- Tu lógica de autenticación -->
   <script src="js/auth.js"></script>
 </body>
 </html>
