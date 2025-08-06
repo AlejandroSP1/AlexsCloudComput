@@ -44,6 +44,7 @@ input, select {
   color: #2C3E50; /* Texto oscuro */
 }
 
+/* Botones */
 button {
   padding: 12px 18px;
   background-color: #2980B9; /* Azul más oscuro y masculino */
@@ -114,7 +115,7 @@ img {
   gap: 15px;
 }
 
-input[type="email"], input[type="password"] {
+input[type="email"], input[type="password"], select {
   background-color: #BDC3C7;
   border: 1px solid #7F8C8D;
   color: #2C3E50;
