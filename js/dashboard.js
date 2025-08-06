@@ -1,0 +1,163 @@
+const SUPABASE_URL = "https://prcgplilslpcluutzvwf.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InByY2dwbGlsc2xwY2x1dXR6dndmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ1MDUzNzUsImV4cCI6MjA3MDA4MTM3NX0.IGZDeF6EJagxOxm1OB2X3MdN8uQ0tRXhYT6hmkYYU1U";
+
+// Definir el cliente de Supabase
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+async function agregarEstudiante() {
+  const nombre = document.getElementById("nombre").value;
+  const correo = document.getElementById("correo").value;
+  const clase = document.getElementById("clase").value;
+
+  const {
+    data: { user },
+    error: userError,
+  } = await client.auth.getUser();
+
+  if (userError || !user) {
+    alert("No estás autenticado.");
+    return;
+  }
+
+  const { error } = await client.from("estudiantes").insert({
+    nombre,
+    correo,
+    clase,
+    user_id: user.id,
+  });
+
+  if (error) {
+    alert("Error al agregar: " + error.message);
+  } else {
+    alert("Estudiante agregado");
+    cargarEstudiantes();
+  }
+}
+
+async function cargarEstudiantes() {
+  const { data, error } = await client
+    .from("estudiantes") //Nombre de la tabla
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    alert("Error al cargar estudiantes: " + error.message);
+    return;
+  }
+
+  const lista = document.getElementById("lista-estudiantes");
+  lista.innerHTML = "";
+  data.forEach((est) => {
+    const item = document.createElement("li");
+    item.textContent = `${est.nombre} (${est.clase})`; // Corregido template literal
+    lista.appendChild(item);
+  });
+}
+
+async function subirArchivo() {
+  const archivoInput = document.getElementById("archivo");
+  const archivo = archivoInput.files[0];
+
+  if (!archivo) {
+    alert("Selecciona un archivo primero.");
+    return;
+  }
+
+  const {
+    data: { user },
+    error: userError,
+  } = await client.auth.getUser();
+
+  if (userError || !user) {
+    alert("Sesión no válida.");
+    return;
+  }
+
+  const nombreRuta = `${user.id}/${archivo.name}`; // Corregido template literal
+  const { data, error } = await client.storage
+    .from("tareas") //Nombre del bucket
+    .upload(nombreRuta, archivo, {
+      cacheControl: "3600",
+      upsert: false,
+    });
+
+  if (error) {
+    alert("Error al subir: " + error.message);
+  } else {
+    alert("Archivo subido correctamente.");
+    listarArchivos(); 
+  }
+}
+
+async function listarArchivos() {
+  const {
+    data: { user },
+    error: userError,
+  } = await client.auth.getUser();
+
+  if (userError || !user) {
+    alert("Sesión no válida.");
+    return;
+  }
+
+  const { data, error } = await client.storage
+    .from("tareas")
+    .list(`${user.id}`, { limit: 20 }); // Corregido template literal
+
+  const lista = document.getElementById("lista-archivos");
+  lista.innerHTML = "";
+
+  if (error) {
+    lista.innerHTML = "<li>Error al listar archivos</li>";
+    return;
+  }
+
+  data.forEach(async (archivo) => {
+    const { data: signedUrlData, error: signedUrlError } = await client.storage
+      .from("tareas")
+      .createSignedUrl(`${user.id}/${archivo.name}`, 60); // Corregido template literal
+
+    if (signedUrlError) {
+      console.error("Error al generar URL firmada:", signedUrlError.message);
+      return;
+    }
+
+    const publicUrl = signedUrlData.signedUrl;
+
+    const item = document.createElement("li");
+
+    const esImagen = archivo.name.match(/\.(jpg|jpeg|png|gif)$/i);
+    const esPDF = archivo.name.match(/\.pdf$/i);
+
+    if (esImagen) {
+      item.innerHTML = `
+        <strong>${archivo.name}</strong><br>
+        <a href="${publicUrl}" target="_blank">
+          <img src="${publicUrl}" width="150" style="border:1px solid #ccc; margin:5px;" />
+        </a>
+      `;
+    } else if (esPDF) {
+      item.innerHTML = `
+        <strong>${archivo.name}</strong><br>
+        <a href="${publicUrl}" target="_blank">Ver PDF</a>
+      `;
+    } else {
+      item.innerHTML = `<a href="${publicUrl}" target="_blank">${archivo.name}</a>`;
+    }
+
+    lista.appendChild(item);
+  });
+}
+listarArchivos();
+
+async function cerrarSesion() {
+  const { error } = await client.auth.signOut();
+
+  if (error) {
+    alert("Error al cerrar sesión: " + error.message);
+  } else {
+    localStorage.removeItem("token");
+    alert("Sesión cerrada.");
+    window.location.href = "index.html";
+  }
+}
