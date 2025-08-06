@@ -1,131 +1,75 @@
 /* Estilos generales */
 body {
-  background-color: #2C3E50; /* Fondo oscuro */
-  font-family: 'Arial', sans-serif; /* Fuente más fuerte y simple */
+  background-color: #1E2A36; /* Fondo oscuro elegante */
+  font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
+  color: white; /* Texto blanco para contraste */
+  margin: 0;
+  padding: 40px;
   display: flex;
   justify-content: center;
-  padding: 40px;
-  margin: 0;
 }
 
-/* Contenedor central */
-.contenedor {
-  background-color: #34495E; /* Fondo oscuro, elegante */
+/* Contenedor principal */
+.container {
+  background-color: #2C3E50; /* Fondo ligeramente más claro */
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3); /* Sombras más intensas */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
   width: 100%;
-  max-width: 600px;
-  color: white; /* Texto blanco para contraste */
+  max-width: 800px;
 }
 
 /* Títulos */
 h1, h2 {
-  color: #ECF0F1; /* Blanco grisáceo */
-  margin-top: 20px;
   text-align: center;
+  color: #E74C3C; /* Rojo vibrante para destacar */
+  font-weight: bold;
 }
 
-/* Formularios */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Mayor espacio entre los elementos */
-  margin-bottom: 15px;
-}
-
-/* Campos de texto y botones */
+/* Formularios y inputs */
 input, select {
-  padding: 12px;
-  font-size: 16px;
-  border: 1px solid #7F8C8D; /* Gris oscuro en los bordes */
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid #16A085; /* Verde fresco para los bordes */
   border-radius: 8px;
-  background-color: #BDC3C7; /* Fondo gris claro */
-  color: #2C3E50; /* Texto oscuro */
+  background-color: #34495E; /* Fondo más oscuro */
+  color: white;
+  font-size: 16px;
 }
 
 /* Botones */
 button {
-  padding: 12px 18px;
-  background-color: #2980B9; /* Azul más oscuro y masculino */
+  background-color: #16A085; /* Verde */
   color: white;
   border: none;
+  padding: 10px 20px;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  margin-top: 10px;
+  font-size: 16px;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #1F6B93; /* Azul más profundo al hacer hover */
+  background-color: #1ABC9C; /* Efecto al pasar el mouse */
 }
 
-/* Estilos del botón cerrar sesión */
-.cerrar-btn {
-  background-color: #E74C3C; /* Rojo para llamar la atención */
-  display: block;
-  width: 35%;
-  margin: 20px auto 0;
-  padding: 12px;
+/* Sección de archivos subidos */
+.card {
+  background-color: #34495E;
+  padding: 20px;
   border-radius: 8px;
+  margin-top: 20px;
 }
 
-.cerrar-btn:hover {
-  background-color: #C0392B; /* Rojo más oscuro en hover */
-}
-
-/* Estilo de la lista */
-ul {
-  list-style: none;
+.card ul {
+  list-style-type: none;
   padding-left: 0;
 }
 
-ul li {
-  margin: 10px 0;
-  padding: 12px;
-  background-color: #34495E; /* Fondo más oscuro para los elementos de lista */
-  border-radius: 8px;
-  font-size: 16px;
+.card ul li {
+  margin-bottom: 10px;
 }
 
-img {
-  display: block;
-  margin-top: 5px;
-  border-radius: 8px;
-}
-
-/* Estilo para el login y registro */
-#auth-container {
-  background-color: #2C3E50;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  max-width: 400px;
-  width: 100%;
-}
-
-#auth-container h2 {
-  color: #ECF0F1;
-}
-
-#login-form, #register-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-input[type="email"], input[type="password"], select {
-  background-color: #BDC3C7;
-  border: 1px solid #7F8C8D;
-  color: #2C3E50;
-}
-
-button {
-  background-color: #2980B9;
-  color: white;
-}
-
-button:hover {
-  background-color: #1F6B93;
+button:disabled {
+  background-color: #7F8C8D; /* Gris cuando el botón está deshabilitado */
 }
