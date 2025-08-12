@@ -1,69 +1,71 @@
-/* Estilos generales */
+/* ==== Estilo base general ==== */
 body {
   background-color: #1E2A36; /* Fondo oscuro elegante */
-  font-family: 'Arial', sans-serif; /* Fuente limpia y moderna */
-  color: white; /* Texto blanco para contraste */
-  margin: 0;
-  padding: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Centrar verticalmente */
-  height: 100vh; /* Utiliza toda la altura de la pantalla */
-  text-align: center; /* Centrar texto */
+  font-family: 'Arial', sans-serif;
+  color: white;
 }
 
-/* Contenedor principal */
+/* ==== Contenedor principal ==== */
 .container {
   background-color: #2C3E50; /* Fondo ligeramente más claro */
-  padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  width: 100%;
-  max-width: 800px;
 }
 
-/* Títulos */
-h1, h2 {
-  text-align: center;
-  color: #E74C3C; /* Rojo vibrante para destacar */
+/* ==== Títulos ==== */
+h1, h2, h4 {
+  color: #E74C3C; /* Rojo vibrante */
   font-weight: bold;
 }
 
-/* Formularios y inputs */
-input, select {
-  padding: 10px;
-  margin: 10px 0;
-  border: 2px solid #16A085; /* Verde fresco para los bordes */
-  border-radius: 8px;
-  background-color: #34495E; /* Fondo más oscuro */
+/* ==== Inputs y selects ==== */
+.form-control,
+.form-select {
+  background-color: #34495E;
+  border: 2px solid #16A085; /* Verde fresco */
   color: white;
-  font-size: 16px;
-  width: 100%; /* Asegura que los campos ocupen todo el ancho disponible */
 }
 
-/* Botones */
-button {
-  background-color: #16A085; /* Verde */
+.form-control:focus,
+.form-select:focus {
+  border-color: #1ABC9C;
+  box-shadow: none;
+  background-color: #3b5368;
   color: white;
+}
+
+/* ==== Botones personalizados ==== */
+.btn-success {
+  background-color: #16A085;
   border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-  width: 100%; /* Para que el botón ocupe todo el ancho */
 }
 
-button:hover {
-  background-color: #1ABC9C; /* Efecto al pasar el mouse */
+.btn-success:hover {
+  background-color: #1ABC9C;
 }
 
-/* Sección de archivos subidos */
+.btn-primary {
+  background-color: #2980B9;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #3498DB;
+}
+
+.btn-danger {
+  background-color: #C0392B;
+  border: none;
+}
+
+.btn-danger:hover {
+  background-color: #E74C3C;
+}
+
+/* ==== Tarjetas ==== */
 .card {
   background-color: #34495E;
-  padding: 20px;
-  border-radius: 8px;
-  margin-top: 20px;
+  border: none;
 }
 
 .card ul {
@@ -75,6 +77,15 @@ button:hover {
   margin-bottom: 10px;
 }
 
-button:disabled {
-  background-color: #7F8C8D; /* Gris cuando el botón está deshabilitado */
+/* ==== Imágenes en archivos ==== */
+.card img {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* ==== Deshabilitado ==== */
+button:disabled,
+.btn:disabled {
+  background-color: #7F8C8D !important;
+  border: none;
 }
